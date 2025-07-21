@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./login.css";
+import API from "../api/API";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/login", formData);
+      const res = await API.post("/auth/login", formData);
       const { token, user } = res.data;
 
       login(token, user);

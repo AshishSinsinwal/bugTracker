@@ -1,7 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./register.css"; // Custom styles
+import "./register.css"; 
+import API from "../api/API";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -40,7 +41,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:8000/api/auth/register", formData);
+      await API.post("/auth/register", formData);
       setSuccess("Registration successful! Redirecting to login...");
       setError("");
 
