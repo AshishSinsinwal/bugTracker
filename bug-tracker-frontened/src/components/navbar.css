@@ -1,0 +1,34 @@
+.navbar-brand strong {
+  font-size: 1.2rem;
+  color: #fff;
+  height: 3rem;
+}
+.navbar i{
+  font-size: 1.5rem;
+}
+.navbar strong{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+
+}
+.navbar .nav-link {
+  color: #ddd !important;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.dropdown-menu li span:hover{
+  background-color: #1A1A1A;
+}
+.dropdown-menu li button:hover{
+  background-color: #1A1A1A;
+}
+.navbar .nav-link:hover {
+  color: #fff !important;
+}
+
+.dropdown-menu {
+  min-width: 160px;
+}
