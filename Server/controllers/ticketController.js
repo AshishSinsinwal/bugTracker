@@ -1,6 +1,7 @@
 const Ticket = require('../models/Ticket');
 const Project = require('../models/Project');
-const User = require("../models/User");
+const BugTrack_User = require("../models/User");
+const mongoose = require('mongoose');
 
 // Admin: create a ticket
 exports.createTicket = async (req, res) => {
@@ -9,17 +10,14 @@ exports.createTicket = async (req, res) => {
     const { projectId } = req.params;
 
     // === VALIDATIONS ===
-    // 1. Required fields
     if (!title || !description) {
       return res.status(400).json({ message: "Title and description are required" });
     }
 
-    // 2. Validate title length (3-100 chars)
     if (title.length < 3 || title.length > 100) {
       return res.status(400).json({ message: "Title must be 3-100 characters" });
     }
 
-    // 3. Validate priority (enum)
     const validPriorities = ["Low", "Medium", "High"];
     if (priority && !validPriorities.includes(priority)) {
       return res.status(400).json({ message: "Invalid priority level" });
@@ -34,8 +32,8 @@ exports.createTicket = async (req, res) => {
       createdBy: req.user.id
     })
     
-    await newTicket.save();
 
+    await newTicket.save();
     let project = await Project.findByIdAndUpdate(projectId , {$push : {tickets : newTicket._id}});
 
     res.status(201).json({ message: 'Ticket created', ticket: newTicket });
@@ -78,6 +76,7 @@ exports.updateTicketStatus = async (req, res) => {
 
     const updated = await Ticket.findByIdAndUpdate(ticketId, { status }, { new: true })
        .populate('comments.author', 'name email')
+       .populate('project', 'name description')
     res.json({ message: 'Status updated', ticket: updated });
   } catch (err) {
     res.status(500).json({ message: 'Error updating status', error: err.message });
@@ -104,7 +103,7 @@ exports.addComment = async (req, res) => {
           }
         }
       },
-      { new: true } // Return the updated document
+      { new: true }
     )
     .populate("createdBy", "name")
     .populate("comments.author", "name role")
@@ -123,7 +122,6 @@ exports.addComment = async (req, res) => {
 exports.getTicketsByDeveloper = async (req, res) => {
   try {
     const tickets = await Ticket.find({ assignedTo: req.user.id })
-    .populate('project')
     .populate('comments.author' , 'name role')
     .populate('project', 'name description')
     res.json({ tickets });
@@ -143,11 +141,11 @@ exports.assignDeveloper = async (req, res) => {
       return res.status(400).json({ message: "Invalid ticket ID" });
     }
 
-    const user = await User.findById(developerId);
+    const user = await BugTrack_User.findById(developerId);
     if (!user || user.role !== "developer") {
       return res.status(400).json({ message: "Invalid developer ID" });
     }
-
+    console.log(user);
     const ticket = await Ticket.findByIdAndUpdate(
       ticketId,
       { assignedTo: developerId },

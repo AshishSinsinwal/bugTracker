@@ -14,7 +14,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-dark navbar-dark sticky-top px-3">
+    <nav className="navbar navbar-expand-md bg-dark navbar-dark sticky-top px-3">
       <div className="container-fluid">
         {/* Logo */}
         <Link className="navbar-brand d-flex  align-items-center gap-2" to="/">

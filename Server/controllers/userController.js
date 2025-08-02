@@ -1,8 +1,8 @@
-const User = require('../models/User');
+const BugTrack_User = require('../models/User');
 
 exports.getDevelopers = async (req ,res) => {
     try{
-        const users = await User.find({role : "developer"});
+        const users = await BugTrack_User.find({role : "developer"});
         if(users){
             console.log(users);
            res.json({users});

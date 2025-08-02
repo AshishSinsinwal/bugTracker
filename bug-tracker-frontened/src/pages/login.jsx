@@ -38,7 +38,7 @@ const Login = () => {
       setSuccess("Login successful! Redirecting...");
       setError("");
 
-      setTimeout(() => navigate("/dashboard"), 1500);
+      setTimeout(() => navigate("/dashboard"), 1000);
     } catch (err) {
       setError(err.response?.data?.message || "Login failed. Please try again.");
       setSuccess("");

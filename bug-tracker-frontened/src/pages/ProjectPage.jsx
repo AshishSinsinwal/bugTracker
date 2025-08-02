@@ -57,7 +57,7 @@ const ProjectPage = () => {
     try {
       const res = await API.post(`/tickets/create/${projectId}`, ticketForm);
       setTickets((prev) => [...prev, res.data.ticket]);
-      setSuccess("New ticket created")
+      setSuccess("New ticket created");
       setTicketForm({ title: "", description: "", priority: "Low" });
     } catch (err) {
       console.error("Failed to create ticket:", err);
@@ -135,16 +135,16 @@ const ProjectPage = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "done": return "status-done";
-      case "in-progress": return "status-in-progress";
+      case "Done": return "status-done";
+      case "In Progress": return "status-in-progress";
       default: return "status-todo";
     }
   };
 
   return (
-    <div className="project-page .dark-theme">
-      {error && <div className="error-message"><i className="fa-solid fa-circle-exclamation"></i> {error}</div>}
-      {success && <div className="success-message"><i className="fa-solid fa-circle-check"></i> {success}</div>}
+    <div className="project-page .dark-theme ">
+      {error && <div className="error-message mb-3"><i className="fa-solid fa-circle-exclamation"></i> {error}</div>}
+      {success && <div className="success-message mb-3"><i className="fa-solid fa-circle-check"></i> {success}</div>}
 
       {isLoading ? (
         <div className="loading">Loading project...</div>
@@ -221,7 +221,7 @@ const ProjectPage = () => {
           ) : (
             <div className="tickets-list">
               {filteredTickets
-                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
                 .map((ticket) => (
                   <div 
                     key={ticket._id} 
@@ -246,7 +246,7 @@ const ProjectPage = () => {
                       <div className="ticket-details">
                         <div className="ticket-meta">
                           <div>Assigned to: {ticket.assignedTo?.name || "Unassigned"}</div>
-                          <div>
+                          <div className="text-small fs-6 ">
                             Created: {new Date(ticket.createdAt).toLocaleString('en-US', {
                               month: 'short',
                               day: 'numeric',
@@ -267,7 +267,7 @@ const ProjectPage = () => {
                               onChange={(e) => assignDeveloper(ticket._id ,e.target.value)}
                               defaultValue=""
                             >
-                              <option value="" disabled>Assign Developer👇</option>
+                              <option value="" disabled>Assign Developer</option>
                               {developers.map((dev) => (
                                 <option key={dev._id} value={dev._id}>
                                   {dev.name} ({dev.email})

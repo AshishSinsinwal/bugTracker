@@ -1,29 +1,26 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose; // Destructure Schema for cleaner usage
+const { Schema } = mongoose;
 
-// schema :
 const userSchema = new mongoose.Schema({
-    name : {
-        type : String,
+    name: {
+        type: String,
     },
-    email : {
-        type : String,
+    email: {
+        type: String,
     },
-    password :{
-        type : String,
+    password: {
+        type: String,
     },
-    role : {
-        type :String,
-        enum : ['admin' , 'developer'],
+    role: {
+        type: String,
+        enum: ['admin', 'developer'],
     },
-    assignedProj : {
-        type: Schema.Types.ObjectId,  // Stores a reference ID
-        ref: 'Project' 
+    assignedProj: {
+        type: Schema.Types.ObjectId,
+        ref: 'Project',
     }
-})
+});
 
-const User = mongoose.model("User" , userSchema);
+const BugTrack_User = mongoose.model("BugTrack_User", userSchema);
 
-
-module.exports = User;
-
+module.exports = BugTrack_User;

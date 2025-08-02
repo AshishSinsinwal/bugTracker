@@ -11,14 +11,14 @@ const projSchema = new Schema({
   description: String,
   createdBy: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'BugTrack_User',
     required: true
   },
-  members: [{  // Changed to array of User references
+  members: [{  
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'BugTrack_User'
   }],
-  tickets: [{  // Changed to array of Ticket references
+  tickets: [{ 
     type: Schema.Types.ObjectId,
     ref: 'Ticket'
   }],

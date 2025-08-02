@@ -10,29 +10,29 @@ const ticketSchema = new Schema({
   },
   description: String,
   project: {
-    type: Schema.Types.ObjectId,  // Use Schema.Types.ObjectId (not mongoose.Schema...)
+    type: Schema.Types.ObjectId,  
     ref: 'Project',
   },
   status: {
     type: String,
     enum: ["To Do", "In Progress", "Done"],
-    default: "To Do"  // Optional: Set a default value
+    default: "To Do" 
   },
   priority: {
     type: String,
     enum: ["Low", "Medium", "High"],
-    default: "Medium"  // Optional: Set a default value
+    default: "Medium"
   },
   assignedTo: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'BugTrack_User',
   },
-   createdBy: { type:Schema.Types.ObjectId, ref: 'User' }, // admin
+   createdBy: { type:Schema.Types.ObjectId, ref: 'BugTrack_User' }, 
   comments: [
     {
       author: {
-        type: Schema.Types.ObjectId,  // Fixed: Use Schema.Types.ObjectId (not just `ObjectId`)
-        ref: 'User',  // Assuming comments are made by users
+        type: Schema.Types.ObjectId, 
+        ref: 'BugTrack_User', 
         required: true
       },
       message: {
@@ -41,7 +41,7 @@ const ticketSchema = new Schema({
       },
       timestamp: {
         type: Date,
-        default: Date.now  // Auto-set to current time
+        default: Date.now 
       }
     }
   ],

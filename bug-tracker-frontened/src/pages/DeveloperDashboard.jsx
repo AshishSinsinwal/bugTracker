@@ -116,8 +116,8 @@ const DeveloperDashboard = () => {
           >
             <option value="all">All Tickets👇</option>
             <option value="To Do">To Do</option>
-            <option value="in-progress">In Progress</option>
-            <option value="done">Done</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Done">Done</option>
           </select>
         </div>
 
@@ -133,7 +133,7 @@ const DeveloperDashboard = () => {
           </div>
         ) : (
           filteredTickets
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
             .map((ticket) => (
               <div key={ticket._id} className="dark-card  card mb-4">
                 <div className="card-body">
@@ -155,19 +155,19 @@ const DeveloperDashboard = () => {
                   
 
                   <div className="mb-3">
-                    {ticket.status !== "in-progress" && ticket.status !== "done" && (
+                    {ticket.status !== "In Progress" && ticket.status !== "Done" && (
                       <button
                         className="btn btn-primary btn-sm me-2"
-                        onClick={() => updateStatus(ticket._id, "in-progress")}
+                        onClick={() => updateStatus(ticket._id, "In Progress")}
                       >
                         Start Progress
                       </button>
                     )}
-                    {ticket.status !== "done" && (
+                    {ticket.status !== "Done" && (
                       <button
                         className="btn btn-success btn-sm"
-                        onClick={() => updateStatus(ticket._id, "done")}
-                        disabled={ticket.status !== "in-progress"}
+                        onClick={() => updateStatus(ticket._id, "Done")}
+                        disabled={ticket.status !== "In Progress"}
                       >
                         Mark Done
                       </button>
@@ -185,7 +185,12 @@ const DeveloperDashboard = () => {
                             <strong>{comment.author?.name || "User"}</strong>:{" "}
                             {comment.message}
                             <div className="text-muted small">
-                              {new Date(comment.timestamp).toLocaleString()}
+                               {new Date(comment.timestamp).toLocaleString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                 })}
                             </div>
                           </li>
                         ))

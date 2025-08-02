@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="bg-dark text-center text-muted py-3 border-top border-secondary">
+        <footer className="bg-dark text-center position-stikcy bottom-0 text-muted py-3 border-top border-secondary">
             <div className="container">
                 <small className="d-block">
                     Bug Tracker © {new Date().getFullYear()}

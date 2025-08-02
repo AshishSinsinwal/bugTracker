@@ -20,7 +20,7 @@ app.get("/" , (req , res)=>{
 app.use("/api/projects", projectRoutes);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/users' , userRoutes);
-
-mongoose.connect(process.env.ATLAS_DB)
-  .then(() => app.listen(8000, () => console.log('Server running on port 8000')))
+const mongoURI = process.env.ATLAS_DB || 'mongodb://127.0.0.1:27017/bugTracker'; 
+mongoose.connect(mongoURI)
+  .then(() => app.listen(port, () => console.log('Server running on port 8000')))
   .catch(err => console.error(err));

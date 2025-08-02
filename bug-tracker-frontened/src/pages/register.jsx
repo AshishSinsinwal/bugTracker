@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./register.css"; 
 import API from "../api/API";
+import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const Register = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -41,13 +43,14 @@ const Register = () => {
     setLoading(true);
 
     try {
-      await API.post("/auth/register", formData);
-      setSuccess("Registration successful! Redirecting to login...");
-      setError("");
+      const res = await API.post("/auth/register", formData);
+      const {token , user} = res.data;
+      login(token , user);
 
-      setTimeout(() => navigate("/login"), 2000);
+      setSuccess("Login successful! Redirecting...");
+      setTimeout(() => navigate("/dashboard"), 1000);
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed. Please try again.");
+      setError(err.response?.data?.message || "Registration failed. Please try again with valid.");
       setSuccess("");
     } finally {
       setLoading(false);
@@ -56,7 +59,7 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <div className="register-card">
+      <div className="register-card mt-4 mb-4">
         <div className="register-header mb-4 text-center">
             <i className="fa-solid fa-bug fa-2x mb-2" style={{  color: "#f44336" }}></i>
           <h1>Create Account</h1>

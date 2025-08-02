@@ -1,25 +1,23 @@
 // controllers/projectController.js
 const { default: mongoose } = require("mongoose");
 const Project = require("../models/Project");
-const User = require("../models/User");
+const BugTrack_User = require("../models/User");
 
 // Create a new project (Admin only)
 exports.createProject = async (req, res) => {
   try {
     console.log("inside");
     const { name, description, members } = req.body;
+
     // === VALIDATION CHECKS ===
-    // 1. Required fields
     if (!name || !description) {
       return res.status(400).json({ message: "Name and description are required" });
     }
 
-    // 2. Name length (e.g., 3-100 chars)
     if (name.length < 3 || name.length > 100) {
       return res.status(400).json({ message: "Name must be 3-100 characters" });
     }
 
-    // 3. Description length (e.g., max 1000 chars)
     if (description.length > 1000) {
       return res.status(400).json({ message: "Description too long (max 1000 chars)" });
     }
