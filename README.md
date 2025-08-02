@@ -32,6 +32,22 @@ A comprehensive Bug Tracking System built with the **MERN stack (MongoDB, Expres
 | **Axios**        | HTTP client for API requests      |
 
 ---
+### 📸 Screenshots
+| Admin Dashboard | Developer View |
+|-----------------|----------------|
+| ![Admin](./screenshots/adminDashboard.png) | ![Developer](./screenshots/developerDashboard.png) |
+
+| Login | Register |
+|-----------------|----------------|
+| ![Login](./screenshots/login.png) | ![Register](./screenshots/register.png) |
+
+**Project Tickets**
+![Project All Tickets](./screenshots/projectTicket.png)
+
+**Ticket**
+![Ticket](./screenshots/ticket.png)
+
+---
 
 ## 🚀 Getting Started
 
