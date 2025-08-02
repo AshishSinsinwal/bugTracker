@@ -12,7 +12,10 @@ const userRoutes = require("./routes/userRoutes");
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
 app.use('/api/auth' , authRouter);
 app.get("/" , (req , res)=>{
     res.send("u are in root");
